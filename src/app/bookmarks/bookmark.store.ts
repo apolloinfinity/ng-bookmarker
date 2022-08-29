@@ -12,7 +12,6 @@ export enum Status {
   'error',
 }
 interface BookmarkState {
-  ß;
   bookmarks: Bookmark[];
   status: Status;
 }
