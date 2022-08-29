@@ -1,1 +1,9 @@
-<p>bookmark-list works!</p>
+<mat-list *ngIf="bookmarks" dense>
+  <mat-list-item *ngFor="let bookmark of bookmarks">
+    <h3>
+      {{ bookmark.urlName }}
+    </h3>
+    <mat-divider [vertical]="true"></mat-divider>
+    {{ bookmark.url }}
+  </mat-list-item>
+</mat-list>

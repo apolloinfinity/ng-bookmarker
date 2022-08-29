@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Bookmark } from './models/Bookmarks';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BookmarksService {
-  baseUrl: string = 'localhost:5050/api/bookmark';
+  baseUrl: string = 'http://localhost/api/bookmark';
   httpOptions = {
     headers: new HttpHeaders().set('Content-type', 'application/json'),
   };
@@ -15,9 +15,7 @@ export class BookmarksService {
   constructor(private http: HttpClient) {}
 
   getAllBookmarks(): Observable<Bookmark[]> {
-    return this.http
-      .get<Bookmark[]>(this.baseUrl)
-      .pipe(tap((users) => console.log(users)));
+    return this.http.get<Bookmark[]>(this.baseUrl);
   }
 
   getBookmark(id: number): Observable<Bookmark> {
@@ -34,7 +32,7 @@ export class BookmarksService {
 
   updateBookmark(bookmark: Bookmark): Observable<Bookmark> {
     return this.http.patch<Bookmark>(
-      `${this.baseUrl}`,
+      `${this.baseUrl}/${bookmark._id}`,
       bookmark,
       this.httpOptions
     );

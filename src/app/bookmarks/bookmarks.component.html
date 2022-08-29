@@ -1,1 +1,3 @@
-<p>bookmarks works!</p>
+<app-bookmark-list
+  [bookmarks]="store.getBookmarks$ | async"
+></app-bookmark-list>

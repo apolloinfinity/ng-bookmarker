@@ -8,6 +8,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -20,6 +22,8 @@ import { MatTableModule } from '@angular/material/table';
     MatExpansionModule,
     MatListModule,
     MatTableModule,
+    MatSnackBarModule,
+    MatDialogModule,
   ],
   exports: [
     MatButtonModule,
@@ -30,6 +34,8 @@ import { MatTableModule } from '@angular/material/table';
     MatExpansionModule,
     MatListModule,
     MatTableModule,
+    MatSnackBarModule,
+    MatDialogModule,
   ],
 })
 export class MaterialModule {}

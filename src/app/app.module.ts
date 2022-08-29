@@ -8,16 +8,22 @@ import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormComponent } from './bookmarks/form/form.component';
 import { BookmarkListComponent } from './bookmarks/bookmark-list/bookmark-list.component';
+import { BookmarksStore } from './bookmarks/bookmark.store';
 
 @NgModule({
-  declarations: [AppComponent, BookmarksComponent, FormComponent, BookmarkListComponent],
+  declarations: [
+    AppComponent,
+    BookmarksComponent,
+    FormComponent,
+    BookmarkListComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
     MaterialModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}
