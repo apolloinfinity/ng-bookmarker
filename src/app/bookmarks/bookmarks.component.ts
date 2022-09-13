@@ -10,6 +10,7 @@ import {
   selector: 'app-bookmarks',
   templateUrl: './bookmarks.component.html',
   styleUrls: ['./bookmarks.component.css'],
+  providers: [BookmarksStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BookmarksComponent implements OnInit {
@@ -18,11 +19,4 @@ export class BookmarksComponent implements OnInit {
   ngOnInit(): void {
     this.store.loadBookmarks$();
   }
-
-  // openDialog
-
-  // receives emmitted values from child components
-  // onDelete($event: Bookmark):void {
-  //   this.store.de
-  // }
 }

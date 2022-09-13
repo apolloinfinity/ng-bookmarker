@@ -25,7 +25,7 @@ export class BookmarksStore extends ComponentStore<BookmarkState> {
   // selectors
   getBookmarks$ = this.select(({ bookmarks }) => bookmarks);
   // updaters
-  setBookmarks = this.updater((state, bookmarks: Bookmark[]) => {
+  private setBookmarks = this.updater((state, bookmarks: Bookmark[]) => {
     return { ...state, bookmarks };
   });
 
@@ -45,12 +45,13 @@ export class BookmarksStore extends ComponentStore<BookmarkState> {
     };
   });
 
-  deleteBookmark = this.updater((state, deletedBookmark: Bookmark) => {
+  deleteBookmark = this.updater((state, id: string) => {
+    const filteredBookmarks = state.bookmarks.filter(
+      (bookmark) => bookmark._id !== id
+    );
     return {
       ...state,
-      bookmarks: state.bookmarks.filter(
-        (bookmark: Bookmark) => bookmark._id !== deletedBookmark._id
-      ),
+      bookmarks: filteredBookmarks,
     };
   });
 
@@ -60,7 +61,7 @@ export class BookmarksStore extends ComponentStore<BookmarkState> {
       tap(() => this.setStatusLoading()),
       switchMap(() =>
         this.bookmarkService.getAllBookmarks().pipe(
-          tap((bookmarks) => this.setBookmarks(bookmarks)),
+          tap((payload) => this.setBookmarks(payload.bookmarks)),
           catchError(() => {
             alert('Error getting bookmarks from API');
             return EMPTY;
@@ -71,12 +72,12 @@ export class BookmarksStore extends ComponentStore<BookmarkState> {
     );
   });
 
-  deleteBookmark$ = this.effect((payload$: Observable<Bookmark>) => {
-    return payload$.pipe(
-      switchMap((bookmark) =>
-        this.bookmarkService.deleteBookmark(bookmark).pipe(
-          tap((bookmark) => {
-            this.deleteBookmark(bookmark);
+  deleteBookmark$ = this.effect((id$: Observable<string>) => {
+    return id$.pipe(
+      switchMap((id) =>
+        this.bookmarkService.deleteBookmark(id).pipe(
+          tap(() => {
+            this.deleteBookmark(id);
             this.setStatusLoading();
           }),
           catchError(() => {

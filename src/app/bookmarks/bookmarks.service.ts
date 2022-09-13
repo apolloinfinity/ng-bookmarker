@@ -7,39 +7,38 @@ import { Bookmark } from './models/Bookmarks';
   providedIn: 'root',
 })
 export class BookmarksService {
-  baseUrl: string = 'http://localhost/api/bookmark';
+  baseUrl: string = 'http://localhost:5050/api/bookmark';
   httpOptions = {
     headers: new HttpHeaders().set('Content-type', 'application/json'),
   };
 
   constructor(private http: HttpClient) {}
 
-  getAllBookmarks(): Observable<Bookmark[]> {
-    return this.http.get<Bookmark[]>(this.baseUrl);
+  getAllBookmarks(): Observable<{ bookmarks: Bookmark[] }> {
+    return this.http.get<{ bookmarks: Bookmark[] }>(this.baseUrl);
   }
 
-  getBookmark(id: number): Observable<Bookmark> {
-    return this.http.get<Bookmark>(`${this.baseUrl}/${id}`);
+  getBookmark(id: number): Observable<{ bookmark: Bookmark }> {
+    return this.http.get<{ bookmark: Bookmark }>(`${this.baseUrl}/${id}`);
   }
 
-  addBookmark(bookmark: Bookmark): Observable<Bookmark> {
-    return this.http.post<Bookmark>(
+  addBookmark(bookmark: Bookmark): Observable<{ bookmark: Bookmark }> {
+    return this.http.post<{ bookmark: Bookmark }>(
       `${this.baseUrl}`,
       bookmark,
       this.httpOptions
     );
   }
 
-  updateBookmark(bookmark: Bookmark): Observable<Bookmark> {
-    return this.http.patch<Bookmark>(
+  updateBookmark(bookmark: Bookmark): Observable<{ bookmark: Bookmark }> {
+    return this.http.patch<{ bookmark: Bookmark }>(
       `${this.baseUrl}/${bookmark._id}`,
       bookmark,
       this.httpOptions
     );
   }
 
-  deleteBookmark(bookmark: Bookmark): Observable<Bookmark> {
-    const url = `${this.baseUrl}/${bookmark._id}`;
-    return this.http.delete<Bookmark>(`${this.baseUrl}/${bookmark._id}`);
+  deleteBookmark(id: string): Observable<{ bookmark: string }> {
+    return this.http.delete<{ bookmark: string }>(`${this.baseUrl}/${id}`);
   }
 }
